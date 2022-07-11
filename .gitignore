@@ -1,0 +1,8 @@
+#ignore images
+images/*
+
+#ignore node_modules
+node_modules/
+
+#ignore Dossier documents
+P6-HotTakes/
