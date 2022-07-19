@@ -1,4 +1,4 @@
-# P3 - OhMyFood
+# P6 - HotTakes
 
 ## Installations 
 1. Installer le projet avec npm run install. 
