@@ -1,7 +1,5 @@
 const Sauce = require('../models/sauce');
 const fs = require('fs');
-const sauce = require('../models/sauce');
-const { db } = require('../models/sauce');
 
 exports.createSauce = (req, res, next) => {
   const sauceObject = JSON.parse(req.body.sauce);
@@ -82,24 +80,25 @@ exports.likesauce = async (req, res, next) => {
   try {
     await Sauce.findOne({ _id: req.params.id})
     console.log(commandLike);
-    try {switch (commandLike) {
-      case 1: 
-      await Sauce.updateOne(
-        {_id: req.params.id},
-        {$push : {usersLiked: req.auth.userId},}
-      )
-      break;
-      case 0: 
-      await Sauce.updateOne(
-        {_id: req.params.id},
-        {$pull : {usersLiked: req.auth.userId, usersDisliked: req.auth.userId}}
+    try {
+      switch (commandLike) {
+        case 1: 
+        await Sauce.updateOne(
+          {_id: req.params.id},
+          {$push : {usersLiked: req.auth.userId},}
         )
-      break;
-      case -1:
-      await Sauce.updateOne(
-        {_id: req.params.id},
-        {$push : {usersDisliked: req.auth.userId},}
-      )
+        break;
+        case 0: 
+        await Sauce.updateOne(
+          {_id: req.params.id},
+          {$pull : {usersLiked: req.auth.userId, usersDisliked: req.auth.userId}}
+          )
+        break;
+        case -1:
+        await Sauce.updateOne(
+          {_id: req.params.id},
+          {$push : {usersDisliked: req.auth.userId},}
+        )
     }
     const nouvelleSauce = await Sauce.findOne({ _id: req.params.id});
     const nouveauLikes = nouvelleSauce.usersLiked.length;
@@ -110,6 +109,6 @@ exports.likesauce = async (req, res, next) => {
       dislikes: nouveauDislikes}
     )
     res.status(200).json({message : 'Objet modifié!'})
-  } catch(error){res.status(401).json({error})}
+    } catch(error){res.status(401).json({error})}
   } catch(error){res.status(500).json({error})}
 }
