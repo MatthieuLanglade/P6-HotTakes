@@ -6,7 +6,6 @@ const dotenv = require('dotenv');
 dotenv.config();
  
 exports.signup = (req, res, next) => {
-    console.log(req.body);
     if ( /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/.test(req.body.email)){
         bcrypt.hash(req.body.password, 10)
             .then(hash => {
@@ -16,14 +15,10 @@ exports.signup = (req, res, next) => {
                 });
                 user.save()
                     .then(() => res.status(201).json({message: 'Utilisateur créé'}))
-                    .catch(error => {
-                        if (error.name === "MongoError"){console.log('test');}
-                        else { res.status(500).json({error}); console.log(error);}})
+                    .catch(error => {res.status(500).json({error})})
             })
-            .catch(error => {
-                if (error.name === "MongoError"){console.log('test');}
-                else { res.status(500).json({error}); console.log(error);}});
-    }else {res.status(500).json('Format identifiant inccorect'); console.log('Format identifiant inccorect');}
+            .catch(error => {res.status(500).json({error})});
+    }else {res.status(500).json({message: 'Format identifiant incorrect'})}
 };
 
 exports.login = (req, res, next) => {
@@ -48,12 +43,9 @@ exports.login = (req, res, next) => {
                             });
                         }
                     })
-                    .catch(error =>{
-                        if (error.name === "MongoError"){console.log('test');}
-                        else { res.status(500).json({error}); console.log(error);}
-                    });
+                    .catch(error =>{res.status(500).json({message: error})})
             }
         })
         .catch(error => res.status(500).json({error}));
-    } else {res.status(500).json('Format identifiant inccorect'); console.log('Format identifiant inccorect');}
+    } else {res.status(500).json('Format identifiant inccorect')}
 };

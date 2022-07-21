@@ -10,3 +10,6 @@ P6-HotTakes/
 
 #ignore fichiers Env
 .env
+
+#ignore liste Blacklist Password originelle
+middleware/passwordBlacklist-original.json

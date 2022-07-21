@@ -15,6 +15,12 @@ Contenu images, dossier node_modules & .env ignorés.
 
 ## Versions 
 
+### v1.0.2 - Corrections mineures
+
+* Corrections mineures après relecture,
+* Affinage de la liste passwordBlacklist en passant par le test password-validator
+* Suppression des différents console.log de vérification. 
+
 ### v1.0.1 - Sécurité
 
 * Mise en place environnement avec dotenv:
@@ -24,6 +30,7 @@ Contenu images, dossier node_modules & .env ignorés.
     - Token pour génération du token du webtoken
 * Sécurité :
     - Mise en place Helmet pour protection des en-têtes
+    - limitation des en-têtes à 'GET, POST, PUT, DELETE'
     - Regex sur login + signup (email)
     - Ajout Password Validator (+liste password blacklistés, à épurer)
     - Express Rate Limit sur login

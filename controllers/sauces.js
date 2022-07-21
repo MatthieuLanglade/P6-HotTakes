@@ -16,20 +16,20 @@ exports.createSauce = (req, res, next) => {
   });
   sauce.save()
   .then(() => { res.status(201).json({message: 'Objet enregistré !'})})
-  .catch(error => { res.status(400).json({error})})
+  .catch(error => { res.status(400).json({message: error})})
 };
 
 exports.getOneSauce = (req, res, next) => {
     Sauce.findOne({ _id: req.params.id })
       .then(sauce => {
         res.status(200).json(sauce)})
-      .catch(error => res.status(404).json({error}));
+      .catch(error => res.status(404).json({message: error}));
 }
 
 exports.getAllSauce = (req, res, next) => {
     Sauce.find()
         .then(sauces => res.status(200).json(sauces))
-        .catch(error => res.status(400).json({error}));
+        .catch(error => res.status(400).json({message: error}));
 }
 
 exports.modifySauce = (req, res, next) => { 
@@ -51,7 +51,7 @@ exports.modifySauce = (req, res, next) => {
             // Update la BDD
             Sauce.updateOne({ _id: req.params.id}, { ...sauceObject, _id: req.params.id})
               .then(() => {res.status(200).json({message : 'Objet modifié!'})})
-              .catch(error => res.status(401).json({ error }));})
+              .catch(error => res.status(401).json({message: error}));})
         }
     })
     .catch(error => {res.status(400).json({error});
@@ -68,18 +68,17 @@ exports.deleteSauce = (req, res, next) => {
           fs.unlink(`images/${filename}`, () => {
               Sauce.deleteOne({_id: req.params.id})
                   .then(() => { res.status(200).json({message: 'Objet supprimé !'})})
-                  .catch(error => res.status(401).json({ error }));
+                  .catch(error => res.status(401).json({message: error}));
           });
         }
     })
-    .catch(error => {res.status(500).json({error});});
+    .catch(error => {res.status(500).json({message: error});});
   }
 
 exports.likesauce = async (req, res, next) => {
   const commandLike = req.body.like; 
   try {
     await Sauce.findOne({ _id: req.params.id})
-    console.log(commandLike);
     try {
       switch (commandLike) {
         case 1: 
@@ -109,6 +108,6 @@ exports.likesauce = async (req, res, next) => {
       dislikes: nouveauDislikes}
     )
     res.status(200).json({message : 'Objet modifié!'})
-    } catch(error){res.status(401).json({error})}
-  } catch(error){res.status(500).json({error})}
+    } catch(error){res.status(401).json({message: error})}
+  } catch(error){res.status(500).json({message: error})}
 }

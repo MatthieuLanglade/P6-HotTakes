@@ -10,7 +10,7 @@ passwordSchema
 .has().digits(1)                                // Must have at least 2 digits
 .has().not().spaces()                           // Should not have spaces
 .is().not().oneOf(passwordBlacklist);         // Blacklist these values 
-// Source Blacklist : https://www.ncsc.gov.uk/static-assets/documents/PwnedPasswordsTop100k.json
+// Source Blacklist : https://www.ncsc.gov.uk/static-assets/documents/PwnedPasswordsTop100k.json puis passé dans le test ci-dessus
 
 module.exports = (req, res, next) => {
     if(passwordSchema.validate(req.body.password)){
