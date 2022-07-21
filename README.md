@@ -2,7 +2,7 @@
 
 ## Installations 
 1. Installer le projet avec npm run install. 
-2. Rajouter un fichier environnement .env qui innclus 4 constantes:
+2. Rajouter un fichier environnement .env qui inclus 4 constantes:
     - [PORT] : port d'utilisation pour le backend.
     - [TOKEN] : clé pour génération du token d'identification.
     - [IDENTIFIANTMONGO] : identifiant mongoDB. 
