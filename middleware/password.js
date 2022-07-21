@@ -1,5 +1,5 @@
 const passwordValidator = require('password-validator');
-const passwordBlacklist = require('../middleware/passwordBlacklist');
+const passwordBlacklist = require('./passwordBlacklist');
 const passwordSchema = new passwordValidator();
 
 passwordSchema
